@@ -6,17 +6,15 @@ Handles all LLM (Claude API) calls:
   - Grower WhatsApp message generator for Track 1 crossover
   - Talking point generator given retailer context
 """
-
 from __future__ import annotations
+from groq import Groq
+import os
+
 
 import json
 import os
 import httpx
 from datetime import date
-
-ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
-MODEL = "claude-sonnet-4-20250514"
-MAX_TOKENS = 1024
 
 # Product → crop mapping (from data dictionary)
 PRODUCT_CROP_MAP = {
@@ -44,27 +42,16 @@ STAGE_PRODUCT_MAP = {
 
 
 def _call_claude(system_prompt: str, user_prompt: str) -> str:
-    """
-    Makes a synchronous call to Claude API.
-    Returns the text response.
-    """
-    api_key = os.getenv("ANTHROPIC_API_KEY", "")
-    headers = {
-        "Content-Type": "application/json",
-        "x-api-key": api_key,
-        "anthropic-version": "2023-06-01",
-    }
-    payload = {
-        "model": MODEL,
-        "max_tokens": MAX_TOKENS,
-        "system": system_prompt,
-        "messages": [{"role": "user", "content": user_prompt}],
-    }
-    with httpx.Client(timeout=30.0) as client:
-        response = client.post(ANTHROPIC_API_URL, headers=headers, json=payload)
-        response.raise_for_status()
-        data = response.json()
-        return data["content"][0]["text"]
+    client = Groq(api_key=os.getenv("GROQ_API_KEY", ""))
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
+        max_tokens=1000
+    )
+    return response.choices[0].message.content
 
 
 # ─────────────────────────────────────────────────────────────────────────────
