@@ -268,11 +268,10 @@ def get_retailer_context(db: Session, retailer_id: str, today: date | None = Non
     if loc:
         grower_sql = text("""
             SELECT crop, language, COUNT(*) AS count,
-                   ROUND(AVG(grower_farm_size)::numeric, 1) AS avg_farm_size,
-                   crop_stages
+                ROUND(AVG(grower_farm_size)::numeric, 1) AS avg_farm_size
             FROM growers
             WHERE tehsil = :tehsil
-            GROUP BY crop, language, crop_stages
+            GROUP BY crop, language
             ORDER BY count DESC
             LIMIT 5
         """)
