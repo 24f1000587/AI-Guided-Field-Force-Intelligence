@@ -1,0 +1,95 @@
+:root {
+  --green-900: #0d2818;
+  --green-800: #1a4a2e;
+  --green-700: #1f6b3e;
+  --green-600: #2d8a52;
+  --green-500: #3aaa66;
+  --green-400: #5dc880;
+  --green-300: #8ddda5;
+  --green-100: #d8f5e3;
+  --green-50: #f0faf4;
+
+  --amber-600: #c47a0a;
+  --amber-400: #f0a830;
+  --amber-200: #fde8b0;
+  --amber-50: #fff8e7;
+
+  --red-600: #b91c1c;
+  --red-400: #f87171;
+  --red-100: #fee2e2;
+
+  --slate-900: #0f1923;
+  --slate-800: #1a2535;
+  --slate-700: #243044;
+  --slate-600: #3a4a60;
+  --slate-400: #7a8fa8;
+  --slate-300: #a8bacf;
+  --slate-200: #d0dbe8;
+  --slate-100: #e8eef6;
+  --slate-50: #f5f8fc;
+
+  --white: #ffffff;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--slate-50);
+  color: var(--slate-900);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 { font-family: var(--font-display); line-height: 1.2; }
+
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--slate-100); }
+::-webkit-scrollbar-thumb { background: var(--slate-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--slate-400); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in { animation: fadeIn 0.4s ease forwards; }
+.slide-in { animation: slideIn 0.3s ease forwards; }
+
+.loader {
+  width: 20px; height: 20px;
+  border: 2px solid var(--green-300);
+  border-top-color: var(--green-600);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
