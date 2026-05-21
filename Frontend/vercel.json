@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://ai-guided-field-force-intelligence.onrender.com/:path*"
+    }
+  ]
+}
